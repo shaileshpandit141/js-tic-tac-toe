@@ -42,7 +42,7 @@ function handleComputerClick() {
             scoreList[resIndexList[randomIndex]] = computer
             blockElements[resIndexList[randomIndex]].innerText = computer
             chackComputerWinner()
-        }, 200)
+        }, 250)
     }
 }
 
@@ -66,7 +66,7 @@ function chackWinnerCondition(forWhichOne) {
 
 function chackUserWinner() {
     if (chackWinnerCondition(user)) {
-        document.querySelector(".tic-tac-toe-wrapper").innerHTML = (
+        document.body.insertAdjacentHTML("beforeend", (
             `<div class="winner-container">
                 <h2>Winner is <span>You 🏆🥇🎉🏅</span></h2>
                 <div class="link-container">
@@ -74,14 +74,14 @@ function chackUserWinner() {
                 </div>
             </div>
             `
-        )
+        ))
     }
 }
 
 
 function chackComputerWinner() {
     if (chackWinnerCondition(computer)) {
-        document.querySelector(".tic-tac-toe-wrapper").innerHTML = (
+        document.body.insertAdjacentHTML("beforeend", (
             `<div class="winner-container">
                 <h2>Winner is <span>Computer 🏆🥇🎉🏅</span></h2>
                 <div class="link-container">
@@ -89,6 +89,6 @@ function chackComputerWinner() {
                 </div>
             </div>
             `
-        )
+        ))
     }
 }
