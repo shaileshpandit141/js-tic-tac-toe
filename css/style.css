@@ -45,11 +45,11 @@
     :root {
         /* Define Color variables for Dark Mode */
         --background-color: #1a1a1a;
-        --tic-tac-toe-bg: #1a1a1a;
+        --tic-tac-toe-bg: #333;
         --text-color: #666;
         --btn-bg-color: #2b2b2b;
         --active-color: #006e00;
-        --hover-color: #272727;
+        --hover-color: #444;
         --winner-bg: #1a1a1aa9;
     }
 }
@@ -148,9 +148,9 @@ body {
 
 .tic-tac-toe-container {
     display: flex;
-    align-items: flex-end;
+    /* align-items: flex-end; */
     justify-content: center;
-    padding-bottom: 30px;
+    /* padding-bottom: 30px; */
 }
 
 
