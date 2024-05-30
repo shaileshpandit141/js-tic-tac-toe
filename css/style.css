@@ -33,6 +33,7 @@
     --hover-color: unset;
 }
 
+
 /* Body styles. */
 body {
     display: grid;
@@ -46,12 +47,14 @@ body {
     user-select: none;
 }
 
+
 /* Protect Link OverFlow during Click.  */
 .protect--link--overflow {
     display: flex;
     overflow: hidden;
     width: fit-content;
 }
+
 
 /* Write your style here.-------------- */
 .main-grid-container {
@@ -166,4 +169,48 @@ body {
 .tic-tac-toe-center .block:hover {
     background-color: #ddd;
     cursor: pointer;
+}
+
+
+.winner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.winner-container h2 {
+    font-size: 28px;
+    letter-spacing: 0.03em;
+    margin-block: 32px;
+}
+
+
+.winner-container span {
+    color: #006e00;
+}
+
+
+.winner-container .link-container {
+    user-select: none;
+    overflow: hidden;
+    border-radius: 999rem;
+    background-color: #eee;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+.winner-container .link-container:hover {
+    background-color: #ddd;
+}
+
+
+.winner-container .link-container a {
+    display: inline-block;
+    font-size: 16px;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 16px  32px;
 }
