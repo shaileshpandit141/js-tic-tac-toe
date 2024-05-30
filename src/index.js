@@ -62,3 +62,33 @@ function chackWinnerCondition(forWhichOne) {
         ((scoreList[2] === forWhichOne) && (scoreList[4] === forWhichOne) && (scoreList[6] === forWhichOne))
     )
 }
+
+
+function chackUserWinner() {
+    if (chackWinnerCondition(user)) {
+        document.querySelector(".tic-tac-toe-wrapper").innerHTML = (
+            `<div class="winner-container">
+                <h2>Winner is <span>You</span></h2>
+                <div class="link-container">
+                    <a href=".">Play again</a>
+                </div>
+            </div>
+            `
+        )
+    }
+}
+
+
+function chackComputerWinner() {
+    if (chackWinnerCondition(computer)) {
+        document.querySelector(".tic-tac-toe-wrapper").innerHTML = (
+            `<div class="winner-container">
+                <h2>Winner is <span>You</span></h2>
+                <div class="link-container">
+                    <a href=".">Play again</a>
+                </div>
+            </div>
+            `
+        )
+    }
+}
