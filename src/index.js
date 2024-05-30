@@ -66,29 +66,33 @@ function chackWinnerCondition(forWhichOne) {
 
 function chackUserWinner() {
     if (chackWinnerCondition(user)) {
-        document.body.insertAdjacentHTML("beforeend", (
-            `<div class="winner-container">
+        document.querySelector(".winner-container").innerHTML = (
+            `<div class="winner-wrapper">
                 <h2>Winner is <span>You 🏆🥇🎉🏅</span></h2>
                 <div class="link-container">
                     <a href=".">Play again</a>
                 </div>
             </div>
             `
-        ))
+        )
+        document.querySelector(".winner-container")
+            .classList.add("winner-container-style")
     }
 }
 
 
 function chackComputerWinner() {
     if (chackWinnerCondition(computer)) {
-        document.body.insertAdjacentHTML("beforeend", (
-            `<div class="winner-container">
+        document.querySelector(".winner-container").innerHTML = (
+            `<div class="winner-wrapper">
                 <h2>Winner is <span>Computer 🏆🥇🎉🏅</span></h2>
                 <div class="link-container">
                     <a href=".">Play again</a>
                 </div>
             </div>
             `
-        ))
+        )
+        document.querySelector(".winner-container")
+            .classList.add("winner-container-style")
     }
 }
