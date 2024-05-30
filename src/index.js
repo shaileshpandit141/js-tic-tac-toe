@@ -83,7 +83,7 @@ function chackComputerWinner() {
     if (chackWinnerCondition(computer)) {
         document.querySelector(".tic-tac-toe-wrapper").innerHTML = (
             `<div class="winner-container">
-                <h2>Winner is <span>You</span></h2>
+                <h2>Winner is <span>Computer</span></h2>
                 <div class="link-container">
                     <a href=".">Play again</a>
                 </div>
