@@ -25,3 +25,26 @@ blockElements.forEach((element, index) => {
         handleCurrentUser(element, index)
     })
 })
+
+
+function handleComputerClick() {
+    let resIndexList = []
+    scoreList.forEach((prev, index) => {
+        if (prev === null) {
+            resIndexList.push(index)
+        }
+    })
+
+    let randomIndex = Math.floor(Math.random() * (resIndexList.length - 0) + 0)
+    if (scoreList[resIndexList[randomIndex]] === null) {
+        setTimeout(() => {
+            userStte.innerText = "You"
+            scoreList[resIndexList[randomIndex]] = computer
+            blockElements[resIndexList[randomIndex]].innerText = computer
+            chackComputerWinner()
+        }, 200)
+    }
+}
+
+
+handleComputerClick()
