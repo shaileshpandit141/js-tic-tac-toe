@@ -211,7 +211,7 @@ body {
 .winner-wrapper h2 {
     font-size: 28px;
     letter-spacing: 0.03em;
-    margin-block: 32px;
+    margin-bottom: 32px;
     color: var(--text-color);
 }
 
