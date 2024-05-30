@@ -66,7 +66,9 @@ function chackWinnerCondition(forWhichOne) {
 
 function chackUserWinner() {
     if (chackWinnerCondition(user)) {
-        document.querySelector(".winner-container").innerHTML = (
+        document.querySelector(".tic-tac-toe-center")
+            .style.pointerEvents = "none"
+        document.querySelector(".scores-container").innerHTML = (
             `<div class="winner-wrapper">
                 <h2>Winner is <span>You 🏆🥇🎉🏅</span></h2>
                 <div class="link-container">
@@ -75,15 +77,15 @@ function chackUserWinner() {
             </div>
             `
         )
-        document.querySelector(".winner-container")
-            .classList.add("winner-container-style")
     }
 }
 
 
 function chackComputerWinner() {
     if (chackWinnerCondition(computer)) {
-        document.querySelector(".winner-container").innerHTML = (
+        document.querySelector(".tic-tac-toe-center")
+            .style.pointerEvents = "none"
+        document.querySelector(".scores-container").innerHTML = (
             `<div class="winner-wrapper">
                 <h2>Winner is <span>Computer 🏆🥇🎉🏅</span></h2>
                 <div class="link-container">
@@ -92,7 +94,5 @@ function chackComputerWinner() {
             </div>
             `
         )
-        document.querySelector(".winner-container")
-            .classList.add("winner-container-style")
     }
 }

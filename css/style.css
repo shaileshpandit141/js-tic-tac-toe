@@ -196,28 +196,15 @@ body {
 }
 
 
-.winner-container-style {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-
 .winner-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: var(--winner-bg);
     backdrop-filter: blur(.5px);
+    /* background-color: var(--winner-bg); */
 }
 
 
@@ -225,7 +212,6 @@ body {
     font-size: 28px;
     letter-spacing: 0.03em;
     margin-block: 32px;
-    text-align: center;
     color: var(--text-color);
 }
 
@@ -236,6 +222,7 @@ body {
 
 
 .winner-wrapper .link-container {
+    width: fit-content;
     user-select: none;
     overflow: hidden;
     border-radius: 999rem;
