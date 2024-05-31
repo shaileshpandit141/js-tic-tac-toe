@@ -6,7 +6,6 @@ const lossScoreEl = document.querySelector(".loss-score-number")
 
 let computer = "c"
 let user = "u"
-let gameDraw = "w"
 const scoreList = Array(9).fill(null)
 
 
@@ -25,8 +24,12 @@ function handleComputerClick() {
             scoreList[resIndexList[randomIndex]] = computer
             blockElements[resIndexList[randomIndex]].innerText = computer
             try {
-                chackComputerWinner()
-            } catch {
+                checkComputerWinner()
+                let allBoxFillList = scoreList.filter(prev => prev !== null)
+                if (allBoxFillList.length === 9) {
+                    gameIsDraw()
+                }
+            } catch (e) {
                 // Pass the block if computer is winner. 
             }
         }, 250)
@@ -43,9 +46,9 @@ function handleUserClick(element, index) {
         userStte.innerText = "computer"
         element.innerText = user
         try {
-            chackUserWinner()
+            checkUserWinner()
             handleComputerClick()
-        } catch {
+        } catch (e) {
             // Pass the block if user is winner. 
         }
     }
@@ -73,7 +76,7 @@ function chackWinnerCondition(forWhichOne) {
 }
 
 
-function chackUserWinner() {
+function checkUserWinner() {
     if (chackWinnerCondition(user)) {
         document.querySelector(".tic-tac-toe-center")
             .style.pointerEvents = "none"
@@ -91,7 +94,7 @@ function chackUserWinner() {
 }
 
 
-function chackComputerWinner() {
+function checkComputerWinner() {
     if (chackWinnerCondition(computer)) {
         document.querySelector(".tic-tac-toe-center")
             .style.pointerEvents = "none"
@@ -106,4 +109,19 @@ function chackComputerWinner() {
         )
         throw new Error("Winner is Computer")
     }
+}
+
+function gameIsDraw() {
+    document.querySelector(".tic-tac-toe-center")
+        .style.pointerEvents = "none"
+    document.querySelector(".scores-container").innerHTML = (
+        `<div class="winner-wrapper">
+                <h2>Game Draw</h2>
+                <div class="link-container">
+                    <a href=".">Play again</a>
+                </div>
+            </div>
+            `
+    )
+    throw new Error("Winner is Computer")
 }
