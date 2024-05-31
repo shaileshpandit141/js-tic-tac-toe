@@ -1,3 +1,8 @@
+import touchSound from "./soundEffects/touchSound.js"
+import winnerSound from "./soundEffects/winnerSound.js"
+import loseSound from "./soundEffects/loseSound.js"
+
+
 const blockElements = document.querySelectorAll(".block")
 const userStte = document.querySelector(".current-user-state")
 const winnerScoreEl = document.querySelector(".winner-score-number")
@@ -31,6 +36,7 @@ function handleComputerClick() {
                 }
             } catch (e) {
                 // Pass the block if computer is winner. 
+                loseSound()
             }
         }, 250)
     }
@@ -42,6 +48,7 @@ handleComputerClick()
 
 function handleUserClick(element, index) {
     if (scoreList[index] === null) {
+        touchSound()
         scoreList[index] = user
         userStte.innerText = "computer"
         element.innerText = user
@@ -50,6 +57,7 @@ function handleUserClick(element, index) {
             handleComputerClick()
         } catch (e) {
             // Pass the block if user is winner. 
+            winnerSound()
         }
     }
 }
@@ -84,7 +92,7 @@ function checkUserWinner() {
             `<div class="winner-wrapper">
                 <h2>Winner is <span>You 🏆🥇🎉🏅</span></h2>
                 <div class="link-container">
-                    <a href=".">Play again</a>
+                    <a class="play-again" href=".">Play again</a>
                 </div>
             </div>
             `
@@ -102,7 +110,7 @@ function checkComputerWinner() {
             `<div class="winner-wrapper">
                 <h2>Winner is <span>Computer 🏆🥇🎉🏅</span></h2>
                 <div class="link-container">
-                    <a href=".">Play again</a>
+                    <a class="play-again" href=".">Play again</a>
                 </div>
             </div>
             `
@@ -116,12 +124,12 @@ function gameIsDraw() {
         .style.pointerEvents = "none"
     document.querySelector(".scores-container").innerHTML = (
         `<div class="winner-wrapper">
-                <h2>Game Draw</h2>
-                <div class="link-container">
-                    <a href=".">Play again</a>
-                </div>
+            <h2>Game Draw</h2>
+            <div class="link-container">
+                <a class="play-again" href=".">Play again</a>
             </div>
-            `
+        </div>
+        `
     )
     throw new Error("Winner is Computer")
 }
