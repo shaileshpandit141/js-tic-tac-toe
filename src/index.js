@@ -6,25 +6,8 @@ const lossScoreEl = document.querySelector(".loss-score-number")
 
 let computer = "c"
 let user = "u"
+let gameDraw = "w"
 const scoreList = Array(9).fill(null)
-
-
-function handleCurrentUser(element, index) {
-    if (scoreList[index] === null) {
-        scoreList[index] = user
-        userStte.innerText = "computer"
-        element.innerText = user
-        chackUserWinner()
-        handleComputerClick()
-    }
-}
-
-
-blockElements.forEach((element, index) => {
-    element.addEventListener("click", (event) => {
-        handleCurrentUser(element, index)
-    })
-})
 
 
 function handleComputerClick() {
@@ -41,13 +24,39 @@ function handleComputerClick() {
             userStte.innerText = "You"
             scoreList[resIndexList[randomIndex]] = computer
             blockElements[resIndexList[randomIndex]].innerText = computer
-            chackComputerWinner()
+            try {
+                chackComputerWinner()
+            } catch {
+                // Pass the block if computer is winner. 
+            }
         }, 250)
     }
 }
 
 
 handleComputerClick()
+
+
+function handleUserClick(element, index) {
+    if (scoreList[index] === null) {
+        scoreList[index] = user
+        userStte.innerText = "computer"
+        element.innerText = user
+        try {
+            chackUserWinner()
+            handleComputerClick()
+        } catch {
+            // Pass the block if user is winner. 
+        }
+    }
+}
+
+
+blockElements.forEach((element, index) => {
+    element.addEventListener("click", (event) => {
+        handleUserClick(element, index)
+    })
+})
 
 
 function chackWinnerCondition(forWhichOne) {
@@ -77,6 +86,7 @@ function chackUserWinner() {
             </div>
             `
         )
+        throw new Error("Winner is User")
     }
 }
 
@@ -94,5 +104,6 @@ function chackComputerWinner() {
             </div>
             `
         )
+        throw new Error("Winner is Computer")
     }
 }
