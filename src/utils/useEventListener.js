@@ -1,7 +1,7 @@
 class EventListener {
-    constructor(eventType, element) {
-        this.eventType = eventType
+    constructor(element, eventType) {
         this.element = element
+        this.eventType = eventType
     }
 
     addEventListener(listener) {
@@ -10,8 +10,8 @@ class EventListener {
 }
 
 
-function useEventListener(eventType, element) {
-    let eventListener = new EventListener(eventType, element)
+function useEventListener(element, eventType) {
+    let eventListener = new EventListener(element, eventType)
     return [eventListener.addEventListener.bind(eventListener)]
 }
 

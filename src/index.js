@@ -1,11 +1,12 @@
 import useLocalStorage from "./utils/useLocalStorage.js"
 import render from "./utils/render.js"
 import { getElementByClass } from "./utils/getElement.js"
-
-
+import useEventListenenr from "./utils/useEventListener.js"
 import touchSound from "./soundEffects/touchSound.js"
 import winnerSound from "./soundEffects/winnerSound.js"
 import loseSound from "./soundEffects/loseSound.js"
+import winnerCondition from "./winnerCondition.js"
+import lossWinnerTemplatet from "./lossWinnerTemplatet.js"
 
 
 const blockElements = document.querySelectorAll(".block")
@@ -23,9 +24,30 @@ const [getLossScore, setLossScore] = useLocalStorage("lossCount", 0)
 
 render(winnerScoreEl, getWinnerScore() < 10 ? `0${getWinnerScore()}` : getWinnerScore())
 render(lossScoreEl, getLossScore() < 10 ? `0${getLossScore()}` : getLossScore())
+computerAction()
 
 
-function handleComputerClick() {
+blockElements.forEach((element, index) => {
+    const [handleClick] = useEventListenenr(element, "click")
+    handleClick((event) => {
+        if (scoreList[index] === null) {
+            touchSound()
+            scoreList[index] = user
+            userStte.innerText = "computer"
+            element.innerText = user
+            try {
+                checkUserWinner()
+                computerAction()
+            } catch (e) {
+                // Pass the block if user is winner. 
+                winnerSound()
+            }
+        }
+    })
+})
+
+
+function computerAction() {
     let resIndexList = []
     scoreList.forEach((prev, index) => {
         if (prev === null) {
@@ -54,95 +76,24 @@ function handleComputerClick() {
 }
 
 
-handleComputerClick()
-
-
-function handleUserClick(element, index) {
-    if (scoreList[index] === null) {
-        touchSound()
-        scoreList[index] = user
-        userStte.innerText = "computer"
-        element.innerText = user
-        try {
-            checkUserWinner()
-            handleComputerClick()
-        } catch (e) {
-            // Pass the block if user is winner. 
-            winnerSound()
-        }
+function checkComputerWinner() {
+    if (winnerCondition(computer, scoreList)) {
+        lossWinnerTemplatet("Winner is <span>Computer 🏆🥇🎉🏅</span>")
+        setLossScore(getLossScore() + 1)
+        throw new Error("Winner is Computer")
     }
 }
 
 
-blockElements.forEach((element, index) => {
-    element.addEventListener("click", (event) => {
-        handleUserClick(element, index)
-    })
-})
-
-
-function chackWinnerCondition(forWhichOne) {
-    return (
-        ((scoreList[0] === forWhichOne) && (scoreList[1] === forWhichOne) && (scoreList[2] === forWhichOne)) ||
-        ((scoreList[3] === forWhichOne) && (scoreList[4] === forWhichOne) && (scoreList[5] === forWhichOne)) ||
-        ((scoreList[6] === forWhichOne) && (scoreList[7] === forWhichOne) && (scoreList[8] === forWhichOne)) ||
-        ((scoreList[0] === forWhichOne) && (scoreList[3] === forWhichOne) && (scoreList[6] === forWhichOne)) ||
-        ((scoreList[1] === forWhichOne) && (scoreList[4] === forWhichOne) && (scoreList[7] === forWhichOne)) ||
-        ((scoreList[2] === forWhichOne) && (scoreList[5] === forWhichOne) && (scoreList[8] === forWhichOne)) ||
-        ((scoreList[0] === forWhichOne) && (scoreList[4] === forWhichOne) && (scoreList[8] === forWhichOne)) ||
-        ((scoreList[2] === forWhichOne) && (scoreList[4] === forWhichOne) && (scoreList[6] === forWhichOne))
-    )
-}
-
-
 function checkUserWinner() {
-    if (chackWinnerCondition(user)) {
-        document.querySelector(".tic-tac-toe-center")
-            .style.pointerEvents = "none"
-        document.querySelector(".scores-container").innerHTML = (
-            `<div class="winner-wrapper">
-                <h2>Winner is <span>You 🏆🥇🎉🏅</span></h2>
-                <div class="link-container">
-                    <a class="play-again" href=".">Play again</a>
-                </div>
-            </div>
-            `
-        )
+    if (winnerCondition(user, scoreList)) {
+        lossWinnerTemplatet("Winner is <span>You 🏆🥇🎉🏅</span>")
         setWinnerScore(getWinnerScore() + 1)
         throw new Error("Winner is User")
     }
 }
 
 
-function checkComputerWinner() {
-    if (chackWinnerCondition(computer)) {
-        document.querySelector(".tic-tac-toe-center")
-            .style.pointerEvents = "none"
-        document.querySelector(".scores-container").innerHTML = (
-            `<div class="winner-wrapper">
-                <h2>Winner is <span>Computer 🏆🥇🎉🏅</span></h2>
-                <div class="link-container">
-                    <a class="play-again" href=".">Play again</a>
-                </div>
-            </div>
-            `
-        )
-        setLossScore(getLossScore() + 1)
-        throw new Error("Winner is Computer")
-    }
-}
-
 function gameIsDraw() {
-    document.querySelector(".tic-tac-toe-center")
-        .style.pointerEvents = "none"
-    document.querySelector(".scores-container").innerHTML = (
-        `<div class="winner-wrapper">
-            <h2>Game Draw</h2>
-            <div class="link-container">
-                <a class="play-again" href=".">Play again</a>
-            </div>
-        </div>
-        `
-    )
-    throw new Error("Winner is Computer")
+    lossWinnerTemplatet("Game Draw")
 }
