@@ -7,8 +7,10 @@ import winnerSound from "./soundEffects/winnerSound.js"
 import loseSound from "./soundEffects/loseSound.js"
 import winnerCondition from "./winnerCondition.js"
 import lossWinnerTemplatet from "./lossWinnerTemplatet.js"
+import theme from "./theme.js"
 
 
+const checkbox = document.querySelector(".checkbox")
 const blockElements = document.querySelectorAll(".block")
 const userStte = getElementByClass("current-user-state")
 const winnerScoreEl = getElementByClass("winner-score-number")
@@ -18,13 +20,21 @@ const lossScoreEl = getElementByClass("loss-score-number")
 const computer = "c"
 const user = "u"
 const scoreList = Array(9).fill(null)
+const [getThemeState, setThemeState] = useLocalStorage("themeState", false)
 const [getWinnerScore, setWinnerScore] = useLocalStorage("winnerCount", 0)
 const [getLossScore, setLossScore] = useLocalStorage("lossCount", 0)
 
 
 render(winnerScoreEl, getWinnerScore() < 10 ? `0${getWinnerScore()}` : getWinnerScore())
 render(lossScoreEl, getLossScore() < 10 ? `0${getLossScore()}` : getLossScore())
+theme(checkbox, getThemeState())
 computerAction()
+
+
+checkbox.addEventListener("change", (event)=> {
+    setThemeState(event.currentTarget.checked)
+    theme(checkbox, getThemeState())
+})
 
 
 blockElements.forEach((element, index) => {
