@@ -132,13 +132,13 @@ body {
 }
 
 
-.scores-container :is(.winner-score, .lose-score, .current-user) {
+.scores-container :is(.winner-score, .loss-score, .current-user) {
     font-size: 16px;
     letter-spacing: 0.03em;
 }
 
 
-.scores-container :is(.winner-score-number, .lose-score-number, .current-user-state) {
+.scores-container :is(.winner-score-number, .loss-score-number, .current-user-state) {
     text-transform: uppercase;
     font-size: 16px;
     letter-spacing: 0.03em;

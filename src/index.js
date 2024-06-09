@@ -1,17 +1,28 @@
+import useLocalStorage from "./utils/useLocalStorage.js"
+import render from "./utils/render.js"
+import { getElementByClass } from "./utils/getElement.js"
+
+
 import touchSound from "./soundEffects/touchSound.js"
 import winnerSound from "./soundEffects/winnerSound.js"
 import loseSound from "./soundEffects/loseSound.js"
 
 
 const blockElements = document.querySelectorAll(".block")
-const userStte = document.querySelector(".current-user-state")
-const winnerScoreEl = document.querySelector(".winner-score-number")
-const lossScoreEl = document.querySelector(".loss-score-number")
+const userStte = getElementByClass("current-user-state")
+const winnerScoreEl = getElementByClass("winner-score-number")
+const lossScoreEl = getElementByClass("loss-score-number")
 
 
-let computer = "c"
-let user = "u"
+const computer = "c"
+const user = "u"
 const scoreList = Array(9).fill(null)
+const [getWinnerScore, setWinnerScore] = useLocalStorage("winnerCount", 0)
+const [getLossScore, setLossScore] = useLocalStorage("lossCount", 0)
+
+
+render(winnerScoreEl, getWinnerScore() < 10 ? `0${getWinnerScore()}` : getWinnerScore())
+render(lossScoreEl, getLossScore() < 10 ? `0${getLossScore()}` : getLossScore())
 
 
 function handleComputerClick() {
@@ -97,6 +108,7 @@ function checkUserWinner() {
             </div>
             `
         )
+        setWinnerScore(getWinnerScore() + 1)
         throw new Error("Winner is User")
     }
 }
@@ -115,6 +127,7 @@ function checkComputerWinner() {
             </div>
             `
         )
+        setLossScore(getLossScore() + 1)
         throw new Error("Winner is Computer")
     }
 }
