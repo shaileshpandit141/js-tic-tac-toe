@@ -175,7 +175,7 @@ settingContainer.addEventListener("click", (event) => {
         addStyles(settingContainer, {
             transform: "translateX(76px)",
         })
-        addStyles(event.target, {
+        addStyles(getElementById("setting-img"), {
             transform: 'rotate(0deg)'
         })
         settingState = true
