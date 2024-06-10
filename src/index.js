@@ -14,7 +14,6 @@ import scoreTemplate from "./scoreTemplate.js"
 const root = getElementById("root")
 const checkbox = document.querySelector(".checkbox")
 const blockElements = document.querySelectorAll(".block")
-const userStte = getElementByClass("current-user-state")
 const winnerScoreEl = getElementByClass("winner-score-number")
 const lossScoreEl = getElementByClass("loss-score-number")
 
@@ -45,7 +44,8 @@ blockElements.forEach((element, index) => {
         if (scoreList[index] === null) {
             touchSound()
             scoreList[index] = user
-            userStte.innerText = "computer"
+            getElementByClass("current-user-state")
+                .innerText = "computer"
             element.innerText = user
             try {
                 checkUserWinner()
@@ -70,7 +70,8 @@ function computerAction() {
     let randomIndex = Math.floor(Math.random() * (resIndexList.length - 0) + 0)
     if (scoreList[resIndexList[randomIndex]] === null) {
         setTimeout(() => {
-            userStte.innerText = "You"
+            getElementByClass("current-user-state")
+                .innerText = "You"
             scoreList[resIndexList[randomIndex]] = computer
             blockElements[resIndexList[randomIndex]].innerText = computer
             try {
@@ -126,7 +127,7 @@ function handlePageRefresh() {
     listOfBox.forEach((box) => {
         box.innerText = null
     })
-    
+
     for (let node of root.children) {
         root.appendChild(node)
     }
@@ -138,4 +139,6 @@ function handlePageRefresh() {
     scoreList = Array(9).fill(null)
     document.querySelector(".tic-tac-toe-center")
         .style.pointerEvents = "auto"
+
+    computerAction()
 }
