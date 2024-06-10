@@ -119,6 +119,11 @@ function checkUserWinner() {
 
 function gameIsDraw() {
     lossWinnerTemplatet("Game Draw")
+    let playAgainBtn = document.querySelector(".play-again")
+    playAgainBtn.addEventListener("click", (event) => {
+        event.preventDefault()
+        handlePageRefresh()
+    })
 }
 
 
