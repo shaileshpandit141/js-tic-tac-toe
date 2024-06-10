@@ -58,7 +58,6 @@
 /* Body styles. */
 body {
     display: grid;
-    background-color: var(--background-color);
     grid-template-columns: 30px repeat(10, 1fr) 30px;
     height: fit-content;
     width: 100%;
@@ -67,6 +66,16 @@ body {
     overflow-y: auto;
     user-select: none;
     background-color: var(--background-color);
+}
+
+
+#root {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: 30px repeat(10, 1fr) 30px;
+    height: fit-content;
+    width: 100%;
+    position: relative;
 }
 
 

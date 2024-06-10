@@ -1,6 +1,6 @@
 import useLocalStorage from "./utils/useLocalStorage.js"
 import render from "./utils/render.js"
-import { getElementByClass } from "./utils/getElement.js"
+import { getElementByClass, getElementById } from "./utils/getElement.js"
 import useEventListenenr from "./utils/useEventListener.js"
 import touchSound from "./soundEffects/touchSound.js"
 import winnerSound from "./soundEffects/winnerSound.js"
@@ -8,8 +8,10 @@ import loseSound from "./soundEffects/loseSound.js"
 import winnerCondition from "./winnerCondition.js"
 import lossWinnerTemplatet from "./lossWinnerTemplatet.js"
 import theme from "./theme.js"
+import scoreTemplate from "./scoreTemplate.js"
 
 
+const root = getElementById("root")
 const checkbox = document.querySelector(".checkbox")
 const blockElements = document.querySelectorAll(".block")
 const userStte = getElementByClass("current-user-state")
@@ -19,7 +21,7 @@ const lossScoreEl = getElementByClass("loss-score-number")
 
 const computer = "c"
 const user = "u"
-const scoreList = Array(9).fill(null)
+let scoreList = Array(9).fill(null)
 const [getThemeState, setThemeState] = useLocalStorage("themeState", false)
 const [getWinnerScore, setWinnerScore] = useLocalStorage("winnerCount", 0)
 const [getLossScore, setLossScore] = useLocalStorage("lossCount", 0)
@@ -31,7 +33,7 @@ theme(checkbox, getThemeState())
 computerAction()
 
 
-checkbox.addEventListener("change", (event)=> {
+checkbox.addEventListener("change", (event) => {
     setThemeState(event.currentTarget.checked)
     theme(checkbox, getThemeState())
 })
@@ -90,6 +92,11 @@ function checkComputerWinner() {
     if (winnerCondition(computer, scoreList)) {
         lossWinnerTemplatet("Winner is <span>Computer 🏆🥇🎉🏅</span>")
         setLossScore(getLossScore() + 1)
+        let playAgainBtn = document.querySelector(".play-again")
+        playAgainBtn.addEventListener("click", (event) => {
+            event.preventDefault()
+            handlePageRefresh()
+        })
         throw new Error("Winner is Computer")
     }
 }
@@ -99,6 +106,11 @@ function checkUserWinner() {
     if (winnerCondition(user, scoreList)) {
         lossWinnerTemplatet("Winner is <span>You 🏆🥇🎉🏅</span>")
         setWinnerScore(getWinnerScore() + 1)
+        let playAgainBtn = document.querySelector(".play-again")
+        playAgainBtn.addEventListener("click", (event) => {
+            event.preventDefault()
+            handlePageRefresh()
+        })
         throw new Error("Winner is User")
     }
 }
@@ -106,4 +118,24 @@ function checkUserWinner() {
 
 function gameIsDraw() {
     lossWinnerTemplatet("Game Draw")
+}
+
+
+function handlePageRefresh() {
+    let listOfBox = root.querySelectorAll(".block")
+    listOfBox.forEach((box) => {
+        box.innerText = null
+    })
+    
+    for (let node of root.children) {
+        root.appendChild(node)
+    }
+
+    let template = scoreTemplate(getWinnerScore(), getLossScore())
+    document.querySelector(".scores-container")
+        .innerHTML = template
+
+    scoreList = Array(9).fill(null)
+    document.querySelector(".tic-tac-toe-center")
+        .style.pointerEvents = "auto"
 }
