@@ -89,12 +89,40 @@ body {
 
 .setting-container {
     position: fixed;
-    top: 0;
+    top: unset;
     right: 0;
-    bottom: unset;
+    bottom: 0;
     left: unset;
     padding: 8px 16px;
+    background-color: var(--text-color);
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+    border-radius: 999rem 0 0 999rem;
+    user-select: none;
+    transform: translateX(76px);
+    transition: transform 0.3s ease-in-out;
 }
+
+.setting-btn {
+    aspect-ratio: 1/1;
+    height: 28px;
+    cursor: pointer;
+    border-radius: 999rem;
+    overflow: hidden;
+}
+
+.setting-btn img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* .setting-btn:hover img {
+    transform: rotate(45deg);
+} */
 
 
 /* The switch - the box around the slider */

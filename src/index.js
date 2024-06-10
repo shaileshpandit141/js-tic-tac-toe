@@ -9,6 +9,7 @@ import winnerCondition from "./winnerCondition.js"
 import lossWinnerTemplatet from "./lossWinnerTemplatet.js"
 import theme from "./theme.js"
 import scoreTemplate from "./scoreTemplate.js"
+import addStyles from "./utils/addStyles.js"
 
 
 const root = getElementById("root")
@@ -147,3 +148,36 @@ function handlePageRefresh() {
 
     computerAction()
 }
+
+
+let settingContainer = getElementByClass("setting-container")
+let settingState = true
+settingContainer.addEventListener("click", (event) => {
+    if (event.target.id === "setting-img") {
+        if (settingState) {
+            addStyles(settingContainer, {
+                transform: "translateX(0)",
+            })
+            addStyles(event.target, {
+                transform: 'rotate(90deg)'
+            })
+            settingState = false
+        } else {
+            addStyles(settingContainer, {
+                transform: "translateX(76px)",
+            })
+            settingState = true
+            addStyles(event.target, {
+                transform: 'rotate(0deg)'
+            })
+        }
+    } else {
+        addStyles(settingContainer, {
+            transform: "translateX(76px)",
+        })
+        addStyles(event.target, {
+            transform: 'rotate(0deg)'
+        })
+        settingState = true
+    }
+})
