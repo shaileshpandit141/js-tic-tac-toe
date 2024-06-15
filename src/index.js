@@ -5,6 +5,7 @@ import useEventListenenr from "./utils/useEventListener.js"
 import touchSound from "./soundEffects/touchSound.js"
 import winnerSound from "./soundEffects/winnerSound.js"
 import loseSound from "./soundEffects/loseSound.js"
+import vibrate from "./soundEffects/vibration.js"
 import winnerCondition from "./winnerCondition.js"
 import lossWinnerTemplatet from "./lossWinnerTemplatet.js"
 import theme from "./theme.js"
@@ -13,29 +14,43 @@ import addStyles from "./utils/addStyles.js"
 
 
 const root = getElementById("root")
-const checkbox = document.querySelector(".checkbox")
-const blockElements = document.querySelectorAll(".block")
+const themeSwitch = getElementByClass("themeSwitch")
+const soundSwitch = getElementByClass("soundSwitch")
+const vibrationSwitch = getElementByClass("vibrationSwitch")
 const winnerScoreEl = getElementByClass("winner-score-number")
 const lossScoreEl = getElementByClass("loss-score-number")
+const blockElements = document.querySelectorAll(".block")
 
 
 const computer = "c"
 const user = "u"
 let scoreList = Array(9).fill(null)
 const [getThemeState, setThemeState] = useLocalStorage("themeState", false)
+const [getSoundState, setSoundState] = useLocalStorage("soundState", false)
+const [getVibrationState, setVibrationState] = useLocalStorage("vibrationState", false)
 const [getWinnerScore, setWinnerScore] = useLocalStorage("winnerCount", 0)
 const [getLossScore, setLossScore] = useLocalStorage("lossCount", 0)
 
 
 render(winnerScoreEl, getWinnerScore() < 10 ? `0${getWinnerScore()}` : getWinnerScore())
 render(lossScoreEl, getLossScore() < 10 ? `0${getLossScore()}` : getLossScore())
-theme(checkbox, getThemeState())
+theme(themeSwitch, getThemeState())
 computerAction()
 
 
-checkbox.addEventListener("change", (event) => {
+themeSwitch.addEventListener("change", (event) => {
     setThemeState(event.currentTarget.checked)
-    theme(checkbox, getThemeState())
+    theme(themeSwitch, getThemeState())
+})
+
+
+soundSwitch.addEventListener("change", (event) => {
+    setSoundState(event.currentTarget.checked)
+})
+
+
+vibrationSwitch.addEventListener("change", (event) => {
+    setVibrationState(event.currentTarget.checked)
 })
 
 
@@ -43,7 +58,8 @@ blockElements.forEach((element, index) => {
     const [handleClick] = useEventListenenr(element, "click")
     handleClick((event) => {
         if (scoreList[index] === null) {
-            touchSound()
+            touchSound(soundSwitch, getSoundState())
+            vibrate(vibrationSwitch, getVibrationState())
             scoreList[index] = user
             getElementByClass("current-user-state")
                 .innerText = "computer"
@@ -53,7 +69,7 @@ blockElements.forEach((element, index) => {
                 computerAction()
             } catch (e) {
                 // Pass the block if user is winner. 
-                winnerSound()
+                winnerSound(soundSwitch, getSoundState())
             }
         }
     })
@@ -83,7 +99,7 @@ function computerAction() {
                 }
             } catch (e) {
                 // Pass the block if computer is winner. 
-                loseSound()
+                loseSound(soundSwitch, getSoundState())
             }
         }, 250)
     }
@@ -164,7 +180,7 @@ settingContainer.addEventListener("click", (event) => {
             settingState = false
         } else {
             addStyles(settingContainer, {
-                transform: "translateX(76px)",
+                transform: "translateX(190px)",
             })
             settingState = true
             addStyles(event.target, {
@@ -173,7 +189,7 @@ settingContainer.addEventListener("click", (event) => {
         }
     } else {
         addStyles(settingContainer, {
-            transform: "translateX(76px)",
+            transform: "translateX(190px)",
         })
         addStyles(getElementById("setting-img"), {
             transform: 'rotate(0deg)'

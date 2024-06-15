@@ -19,16 +19,38 @@
     <main id="root">
         <!-- ----------------------------------------- -->
         <div class="setting-container">
-            <div class="setting-btn">
-                <img id="setting-img" src="./assets/icons/settings.svg" alt="">
+            <div class="setting-icon-btn-wrapper">
+                <div class="setting-btn">
+                    <img id="setting-img" src="./assets/icons/settings.svg" alt="">
+                </div>
             </div>
-            <!-- Rounded switch -->
-            <label class="switch">
-                <input type="checkbox" class="checkbox">
-                <span class="slider round"></span>
-            </label>
+            <div class="setting-buttons-wrapper">
+                <section class="theme-btn-container">
+                    <h3 class="lable">Theme</h3>
+                    <label class="switch">
+                        <input type="checkbox" class="checkbox themeSwitch">
+                        <span class="slider round"></span>
+                    </label>
+                </section>
+
+                <section class="theme-btn-container">
+                    <h3 class="lable">Sound</h3>
+                    <label class="switch">
+                        <input type="checkbox" class="checkbox soundSwitch">
+                        <span class="slider round"></span>
+                    </label>
+                </section>
+
+                <section class="theme-btn-container">
+                    <h3 class="lable">Vibration</h3>
+                    <label class="switch">
+                        <input type="checkbox" class="checkbox vibrationSwitch">
+                        <span class="slider round"></span>
+                    </label>
+                </section>
+            </div>
         </div>
-        
+
         <div class="winner-container"></div>
 
         <section class="main-grid-container">

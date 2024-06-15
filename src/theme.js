@@ -2,7 +2,7 @@
 let root = document.documentElement;
 
 
-export default function theme(checkbox, state) {
+export default function theme(themeSwitch, state) {
     if (state) {
         root.style.setProperty('--background-color', '#f2f2f2');
         root.style.setProperty('--tic-tac-toe-bg', '#e6e6e6');
@@ -20,5 +20,5 @@ export default function theme(checkbox, state) {
         root.style.setProperty('--hover-color', "#444");
         root.style.setProperty('--winner-bg', '#1a1a1aa9');
     }
-    checkbox.checked = state
+    themeSwitch.checked = state
 }

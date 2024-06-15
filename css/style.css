@@ -93,15 +93,20 @@ body {
     right: 0;
     bottom: 0;
     left: unset;
-    padding: 8px 16px;
-    background-color: var(--text-color);
     display: flex;
     align-items: center;
-    column-gap: 16px;
-    border-radius: 999rem 0 0 999rem;
     user-select: none;
-    transform: translateX(76px);
+    transform: translateX(190px);
     transition: transform 0.3s ease-in-out;
+}
+
+
+.setting-icon-btn-wrapper {
+    align-self: flex-end;
+    justify-self: center;
+    background-color: var(--text-color);
+    padding: 12px;
+    border-radius: 999rem 0 0 999rem;
 }
 
 .setting-btn {
@@ -123,6 +128,32 @@ body {
 /* .setting-btn:hover img {
     transform: rotate(45deg);
 } */
+
+
+.setting-buttons-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 8px;
+    background-color: var(--text-color);
+    color: #e6e6e6;
+    padding: 16px;
+    border-top-left-radius: 16px;
+}
+
+
+.theme-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 16px;
+}
+
+
+.theme-btn-container {
+    letter-spacing: 0.03em;
+}
+
 
 
 /* The switch - the box around the slider */
